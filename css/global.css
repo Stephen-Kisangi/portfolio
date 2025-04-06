@@ -1,0 +1,73 @@
+/* Reusable Section Divider */
+.section-divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    margin: 0 auto;
+    border-radius: 2px;
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.section-divider::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 4px;
+    background: var(--accent-color);
+    border-radius: 2px;
+    left: 20px;
+    top: -8px;
+    opacity: 0.6;
+}
+
+.section-divider::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    left: 30px;
+    top: 8px;
+    opacity: 0.4;
+}
+
+/* Section Divider Variations */
+.section-divider.left-aligned {
+    margin-left: 0;
+}
+
+.section-divider.right-aligned {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.section-divider.larger {
+    width: 120px;
+}
+
+.section-divider.subtle {
+    opacity: 0.7;
+}
+
+/* Animation for section divider */
+/*@keyframes dividerAppear {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+    100% {
+        width: 80px;
+        opacity: 1;
+    }
+}
+
+.section-divider.animate {
+    animation: dividerAppear 1s forwards ease-out;
+}*/
+
+/* Section divider for dark backgrounds */
+.dark-bg .section-divider {
+    box-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
+}
