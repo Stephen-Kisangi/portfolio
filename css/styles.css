@@ -10,18 +10,26 @@
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* Fix for viewport and scrolling issues */
+html {
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 body {
     background-color: var(--dark-bg);
     color: var(--text-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
+    width: 100%;
+    position: relative;
+    margin: 0;
     padding-top: 80px; /* Added padding to prevent navbar overlap */
-}
-
-/* Add overflow control to html/body */
-html, body {
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    max-width: 100%;
 }
 
 a {
@@ -67,7 +75,7 @@ a {
     transform: translateY(-1px);
 }
 
-/* Modern Navigation Bar */
+/* Modern Navigation Bar - Fixed positioning */
 .navbar {
     background-color: rgba(15, 23, 42, 0.95);
     backdrop-filter: blur(10px);
@@ -75,12 +83,27 @@ a {
     padding: 1rem 0;
     z-index: 1030;
     font-family: 'Inter', sans-serif; /* Modern font */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%; /* Ensure full width */
 }
 
 .navbar.scrolled {
     background-color: rgba(10, 14, 26, 0.98);
     padding: 0.7rem 0;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Fix container width issues */
+.container, .container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
 }
 
 .navbar-brand {
@@ -118,7 +141,15 @@ a {
     width: 100%;
 }
 
-/* Animated hamburger menu */
+/* Fixed positioning for hamburger menu */
+.navbar .navbar-toggler-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Animated hamburger menu - Fixed positioning */
 .navbar-toggler {
     border: none;
     color: var(--text-color);
@@ -129,6 +160,9 @@ a {
     width: 32px;
     height: 24px;
     transition: all 0.3s ease;
+    margin-left: auto; /* Ensure right alignment */
+    display: block; /* Ensure visibility */
+    background-color: transparent;
 }
 
 .navbar-toggler:focus {
@@ -144,6 +178,7 @@ a {
     position: absolute;
     border-radius: 2px;
     transition: all 0.3s ease;
+    right: 0; /* Ensure alignment from right */
 }
 
 .navbar-toggler .toggler-icon:nth-child(1) {
@@ -245,18 +280,44 @@ a {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* For mobile responsive menu */
+/* Fixed scroll indicator */
+.scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    z-index: 1031;
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+/* Improved mobile styles */
 @media (max-width: 991.98px) {
+    /* Fixed navbar collapse positioning */
     .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
         background-color: rgba(10, 14, 26, 0.98);
         padding: 1rem;
-        border-radius: 0.5rem;
-        margin-top: 0.5rem;
+        border-radius: 0 0 0.5rem 0.5rem;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        max-height: 80vh;
+        overflow-y: auto;
     }
     
     .nav-item {
         margin: 0.5rem 0;
+        width: 100%;
+    }
+    
+    .nav-link {
+        padding-left: 2rem !important;
+        display: block;
+        width: 100%;
     }
     
     .nav-link::before {
@@ -275,21 +336,46 @@ a {
         opacity: 1;
     }
     
-    .nav-link {
-        padding-left: 2rem !important;
+    /* Ensure hamburger is visible */
+    .navbar-toggler {
+        display: block;
+        margin-right: 15px; /* Add some spacing from the edge */
+    }
+    
+    /* Ensure navbar brand doesn't overflow */
+    .navbar-brand {
+        max-width: 70%;
+        font-size: 1.3rem;
+        margin-right: auto;
+    }
+    
+    /* Ensure proper navbar container spacing */
+    .container, .container-fluid {
+        padding-right: 10px;
+        padding-left: 10px;
     }
 }
 
-/* Add a subtle indicator for scrolling */
-.scroll-indicator {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-    z-index: 1031;
-    width: 0;
-    transition: width 0.3s ease;
+/* Small mobile screens */
+@media (max-width: 576px) {
+    .navbar {
+        padding: 0.8rem 0;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+        max-width: 60%;
+    }
+    
+    .navbar-toggler {
+        width: 28px;
+        height: 22px;
+        margin-right: 5px;
+    }
+    
+    body {
+        padding-top: 70px; /* Slightly less padding for small screens */
+    }
 }
 
 /* Hero Section */
