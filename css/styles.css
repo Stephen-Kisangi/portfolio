@@ -2683,28 +2683,153 @@ a {
 
 /* Responsive adjustments */
 @media (max-width: 992px) {
+    /* Tablet and mid-sized screens */
     .contact-wrapper {
         grid-template-columns: 1fr;
     }
     
     .contact-info {
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: flex;
+        flex-direction: row; /* Make items appear in a row */
+        flex-wrap: nowrap;
         justify-content: space-between;
+        gap: 15px;
     }
     
     .contact-item {
-        flex-basis: calc(50% - 15px);
+        flex: 1; /* Each item takes equal width */
+        width: calc(33.33% - 10px); /* Three equal columns with gap consideration */
     }
 }
 
+/* Mobile styles */
 @media (max-width: 768px) {
+    /* Main section adjustments */
+    .contact-section {
+        padding: 40px 0;
+    }
+    
+    .section-header h2 {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+    
+    .contact-wrapper {
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    /* Contact info adjustments - switch to vertical layout for small screens */
     .contact-info {
         flex-direction: column;
+        gap: 10px;
     }
     
     .contact-item {
-        flex-basis: 100%;
+        width: 100%; /* Override the width from mid-sized screens */
+        flex: none;
+        padding: 12px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        border-left-width: 3px;
+    }
+    
+    .contact-item i {
+        font-size: 18px;
+        margin-bottom: 0;
+        margin-right: 12px;
+        flex: 0 0 auto;
+    }
+    
+    .contact-item h3 {
+        font-size: 16px;
+        margin-bottom: 0;
+        margin-right: 10px;
+        flex: 0 0 auto;
+    }
+    
+    .contact-item p {
+        margin: 0;
+        flex: 1 1 100%;
+        font-size: 15px;
+        padding-left: 30px;
+    }
+    
+    /* Special adjustment for the phone item */
+    .contact-item:nth-child(2) p {
+        margin-top: 3px;
+    }
+    
+    /* Form adjustments */
+    .contact-form-container {
+        padding: 20px;
+    }
+    
+    .contact-form-container h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .contact-form .form-group {
+        margin-bottom: 12px;
+    }
+    
+    .contact-form label {
+        font-size: 15px;
+        margin-bottom: 4px;
+    }
+    
+    .contact-form input,
+    .contact-form textarea {
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+    
+    .contact-form button {
+        padding: 10px 18px;
+        font-size: 15px;
+    }
+}
+
+/* Additional adjustments to ensure the three columns display well on mid-sized screens */
+@media (min-width: 769px) and (max-width: 992px) {
+    .contact-item {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .contact-item i {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+    
+    .contact-item h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    
+    .contact-item p {
+        padding-left: 0;
+    }
+}
+
+/* Additional optimization for very small screens */
+@media (max-width: 375px) {
+    .contact-item {
+        padding: 10px;
+    }
+    
+    .contact-item p {
+        font-size: 14px;
+    }
+    
+    .contact-form input,
+    .contact-form textarea {
+        padding: 8px 12px;
     }
 }
 
@@ -2819,16 +2944,18 @@ a {
 
 
 
-/* Modern Footer Styles */
+/* Modern Footer Styles - Complete Updated Version */
 .footer {
     background-color: var(--darker-bg);
     padding: 80px 0 30px;
     position: relative;
     overflow: hidden;
     margin-top: 100px;
+    background-image: linear-gradient(135deg, rgba(22, 22, 35, 0.97) 0%, rgba(24, 24, 45, 0.97) 100%);
+    animation: gradient-reveal 1s ease-out forwards;
 }
 
-/* Modern geometric accents */
+/* Modern geometric accents with animations */
 .footer-accents {
     position: absolute;
     top: 0;
@@ -2842,26 +2969,82 @@ a {
 
 .accent-shape {
     position: absolute;
-    opacity: 0.03;
+    opacity: 0.07;
+    transition: transform 8s ease-in-out;
 }
 
 .shape-1 {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     border-radius: 50%;
-    background: var(--primary-color);
-    top: -150px;
-    right: -50px;
-    filter: blur(50px);
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    top: -200px;
+    right: -100px;
+    filter: blur(70px);
+    animation: float-1 15s infinite alternate ease-in-out;
 }
 
 .shape-2 {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     background: var(--accent-color);
-    bottom: -100px;
-    left: -50px;
-    filter: blur(60px);
+    bottom: -150px;
+    left: -80px;
+    filter: blur(70px);
+    animation: float-2 12s infinite alternate ease-in-out;
+}
+
+/* Add more subtle shapes for depth */
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(67, 97, 238, 0.03) 0%, transparent 70%),
+        radial-gradient(circle at 80% 60%, rgba(var(--accent-color-rgb), 0.03) 0%, transparent 80%);
+    z-index: 0;
+}
+
+/* Add a subtle grid pattern overlay */
+.footer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 0;
+}
+
+/* Add a subtle noise texture */
+.footer .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Particles container */
+.particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
 }
 
 /* Content styling */
@@ -2872,6 +3055,28 @@ a {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 40px;
     margin-bottom: 60px;
+}
+
+.footer-section {
+    opacity: 0;
+    animation: fade-in-up 0.6s ease forwards;
+    transition: transform 0.4s ease;
+}
+
+.footer-section:hover {
+    transform: translateY(-5px);
+}
+
+.footer-section.brand {
+    animation-delay: 0.1s;
+}
+
+.footer-section.navigation {
+    animation-delay: 0.2s;
+}
+
+.footer-section.contact {
+    animation-delay: 0.3s;
 }
 
 .footer-section h3 {
@@ -2892,6 +3097,11 @@ a {
     height: 3px;
     background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
     border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.footer-section:hover h3::after {
+    width: 100%;
 }
 
 /* Brand section */
@@ -2924,15 +3134,41 @@ a {
     background: rgba(67, 97, 238, 0.1);
     color: var(--primary-color);
     font-size: 16px;
-    transition: var(--transition);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                background-color 0.3s ease, 
+                color 0.3s ease, 
+                box-shadow 0.3s ease;
     border: 1px solid rgba(67, 97, 238, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: -1;
 }
 
 .social-icon:hover {
-    background: var(--primary-color);
     color: white;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(67, 97, 238, 0.2);
+}
+
+.social-icon:hover:before {
+    transform: translateY(0);
+}
+
+.social-icon i {
+    position: relative;
+    z-index: 1;
 }
 
 /* Navigation links */
@@ -2949,6 +3185,8 @@ a {
 
 .quick-links ul li {
     margin-bottom: 14px;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
 }
 
 .quick-links ul li a {
@@ -2957,6 +3195,9 @@ a {
     transition: var(--transition);
     display: flex;
     align-items: center;
+    position: relative;
+    padding-left: 0;
+    overflow: hidden;
 }
 
 .quick-links ul li a span {
@@ -2965,11 +3206,34 @@ a {
     margin-right: 8px;
     opacity: 0.8;
     font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.quick-links ul li a:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
 }
 
 .quick-links ul li a:hover {
     color: var(--accent-color);
     transform: translateX(5px);
+}
+
+.quick-links ul li a:hover:before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.quick-links ul li a:hover span {
+    margin-right: 12px;
 }
 
 /* Contact info */
@@ -2984,14 +3248,18 @@ a {
     align-items: center;
     color: var(--text-secondary);
     text-decoration: none;
-    transition: var(--transition);
+    transition: all 0.3s ease;
+    padding: 5px 0;
+    border-radius: 6px;
 }
 
-a.contact-item:hover {
+a.contact-item-footer:hover {
     color: var(--accent-color);
+    background: rgba(67, 97, 238, 0.05);
+    padding-left: 10px;
 }
 
-.contact-item i {
+.contact-item-footer i {
     width: 28px;
     height: 28px;
     display: flex;
@@ -3002,6 +3270,13 @@ a.contact-item:hover {
     margin-right: 12px;
     color: var(--primary-color);
     font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+a.contact-item-footer:hover i {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
 }
 
 /* Footer bottom */
@@ -3031,8 +3306,12 @@ a.contact-item:hover {
     border-radius: 8px;
     background: rgba(67, 97, 238, 0.1);
     color: var(--primary-color);
-    transition: var(--transition);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                background-color 0.3s ease, 
+                color 0.3s ease, 
+                box-shadow 0.3s ease;
     border: 1px solid rgba(67, 97, 238, 0.15);
+    animation: pulse 2s infinite;
 }
 
 .back-to-top:hover {
@@ -3040,6 +3319,65 @@ a.contact-item:hover {
     color: white;
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(67, 97, 238, 0.2);
+}
+
+/* Animations */
+@keyframes float-1 {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(30px) scale(1.05);
+    }
+    100% {
+        transform: translateY(-10px) scale(0.95);
+    }
+}
+
+@keyframes float-2 {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-20px) scale(1.1);
+    }
+    100% {
+        transform: translateY(15px) scale(0.9);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(67, 97, 238, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(67, 97, 238, 0);
+    }
+}
+
+@keyframes gradient-reveal {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive styles */
@@ -3051,6 +3389,16 @@ a.contact-item:hover {
     .footer-section.brand {
         grid-column: 1 / -1;
     }
+    
+    .shape-1 {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .shape-2 {
+        width: 200px;
+        height: 200px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -3061,12 +3409,26 @@ a.contact-item:hover {
     
     .quick-links {
         flex-direction: column;
-        gap: 0;
+        gap: 20px;
     }
     
     .footer-bottom {
         flex-direction: column;
         gap: 20px;
         text-align: center;
+    }
+    
+    .footer {
+        padding: 60px 0 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .social-icons {
+        flex-wrap: wrap;
+    }
+    
+    .footer-section h3 {
+        font-size: 20px;
     }
 }
