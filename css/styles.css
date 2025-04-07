@@ -18,6 +18,12 @@ body {
     padding-top: 80px; /* Added padding to prevent navbar overlap */
 }
 
+/* Add overflow control to html/body */
+html, body {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    max-width: 100%;
+}
+
 a {
     text-decoration: none;
     color: var(--text-color);
