@@ -482,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Testimonials Carousel Functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Core selectors for carousel elements
     const track = document.querySelector('.testimonials-track');
     const slides = Array.from(document.querySelectorAll('.testimonial-card'));
     const dotsNav = document.querySelector('.testimonial-nav');
@@ -495,7 +496,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let slidesToShow = 3;
     let isScrolling = false;
     let animationId;
-    const scrollSpeed = 0.3; // pixels per frame (lower = slower)
+    const scrollSpeed = 0.15; // Pixels per frame (lower = slower)
     
     // Create clones for infinite scrolling
     function setupInfiniteScroll() {
@@ -509,6 +510,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Responsive breakpoints
     function updateSlidesConfig() {
+        // Adjust slides shown based on screen width
         if (window.innerWidth < 768) {
             slidesToShow = 1;
         } else if (window.innerWidth < 1200) {
@@ -525,7 +527,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const allSlides = Array.from(document.querySelectorAll('.testimonial-card'));
         allSlides.forEach(slide => {
             slide.style.flex = `0 0 ${slideWidth}px`;
-            slide.style.maxWidth = `${slideWidth}px`; // Ensure max width is set
+            slide.style.maxWidth = `${slideWidth}px`;
         });
         
         // Position the slides
@@ -543,13 +545,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update active dot
         updateDots();
         
-        // Update slide visibility
+        // Update slide visibility (active vs inactive appearance)
         const allSlides = Array.from(document.querySelectorAll('.testimonial-card'));
         allSlides.forEach((slide, i) => {
             if (i >= currentSlide && i < currentSlide + slidesToShow) {
+                slide.classList.add('active');
                 slide.style.opacity = '1';
                 slide.style.transform = 'scale(1)';
             } else {
+                slide.classList.remove('active');
                 slide.style.opacity = '0.5';
                 slide.style.transform = 'scale(0.95)';
             }
@@ -598,9 +602,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                      i % slides.length < visibleIndex + slidesToShow;
                     
                     if (isVisible) {
+                        slide.classList.add('active');
                         slide.style.opacity = '1';
                         slide.style.transform = 'scale(1)';
                     } else {
+                        slide.classList.remove('active');
                         slide.style.opacity = '0.5';
                         slide.style.transform = 'scale(0.95)';
                     }
@@ -655,6 +661,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set up click events on buttons
     prevButton.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default behavior
         e.stopPropagation(); // Prevent event bubbling
         stopSmoothScroll();
         moveToSlide(Math.max(0, currentSlide - 1));
@@ -662,6 +669,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     nextButton.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default behavior
         e.stopPropagation(); // Prevent event bubbling
         stopSmoothScroll();
         moveToSlide(currentSlide + 1);
@@ -669,7 +677,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Update on resize
-    window.addEventListener('resize', updateSlidesConfig);
+    window.addEventListener('resize', () => {
+        updateSlidesConfig();
+    });
     
     // Pause on hover
     const carouselContainer = document.querySelector('.testimonials-carousel');
@@ -685,6 +695,11 @@ document.addEventListener('DOMContentLoaded', function() {
         stopSmoothScroll();
     }, {passive: true});
     
+    track.addEventListener('touchmove', (e) => {
+        // Prevent page scrolling during swipe
+        e.preventDefault();
+    }, {passive: false});
+    
     track.addEventListener('touchend', (e) => {
         touchEndX = e.changedTouches[0].screenX;
         handleSwipe();
@@ -694,10 +709,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleSwipe() {
         const swipeThreshold = 50;
         if (touchStartX - touchEndX > swipeThreshold) {
-            // Swipe left
+            // Swipe left - next slide
             moveToSlide(currentSlide + 1);
         } else if (touchEndX - touchStartX > swipeThreshold) {
-            // Swipe right
+            // Swipe right - previous slide
             moveToSlide(Math.max(0, currentSlide - 1));
         }
     }
