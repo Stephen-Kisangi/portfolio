@@ -21,6 +21,11 @@ html {
     box-sizing: inherit;
 }
 
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+}
+
 body {
     background-color: var(--dark-bg);
     color: var(--text-color);
